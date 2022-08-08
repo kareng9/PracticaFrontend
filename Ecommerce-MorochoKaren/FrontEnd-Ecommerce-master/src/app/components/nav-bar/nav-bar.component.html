@@ -1,0 +1,22 @@
+<div class="d-flex flex-column flex-md-row align-items-center justify-content-between p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <img src="/assets/images/shop.gif" style="max-height:110px;" alt="">
+    <nav class="my-2 my-md-0 mr-md-3">
+      <a class="p-2 text-dark" routerLink="/">Inicio</a>
+      <a class="p-2 text-dark" routerLink="/brand">Marcas</a>
+      <a class="p-2 text-dark" routerLink="/product">Productos</a>
+      <a class="p-2 text-dark" routerLink="product-type">Tipos de Producto</a>
+      
+      <a class="p-2 text-dark" href="#">Contactenos</a>
+
+    </nav>
+
+    <div class="d-flex align-items-center">
+        <a class="position-relative" routerLink="cart">
+            <i class="fa fa-shopping-cart fa-2x mr-5 text-dark"></i>
+            <!-- <div class="cart-no"></div> -->
+        </a>
+        <a class="btn btn-outline-primary" routerLink="/login">Login</a>
+        <a class="btn btn-outline-primary" (click)="exit()">Exit</a>
+
+    </div>
+  </div>

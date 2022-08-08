@@ -1,0 +1,115 @@
+.cart-flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.cart-title{
+    color: var(--primary-color);
+    margin-bottom: 0;
+}
+.cart-products{
+    width: 40%;
+}
+.order-product{
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.523);
+    border-radius: 5px;
+}
+.order-detail{
+    width: 60%;
+    margin-left: 10px;
+}
+.order-img{
+    max-width: 40%;
+    height: auto;
+    margin: auto;
+    border-radius: 5px;
+}
+.order-pay{
+    width: max-content;
+    margin: auto;
+    background-color: white;
+    padding: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border-bottom-right-radius: 20px;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.table-pay{
+    margin: auto;
+}
+.table-item{
+    text-align: right;
+}
+.product-code span{
+    color: var(--primary-color);
+    font-weight: bold;
+}
+.buttons-details{
+    width: max-content;
+    margin: auto;
+}
+.btn-details{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px;
+    width: 120px;
+    padding: 5px 10px;
+    border: none;
+    background-color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.btn-details:hover{
+    background-color: white;
+    color: rgb(0, 115, 255);
+}
+
+.deliveryMethod{
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    width: max-content;
+    font-size: 0.9rem;
+}
+
+.btn-remove-product{
+    background-color: transparent;
+    color: red;
+    font-weight: bold;
+    font-size: 0.8rem;
+    border: none;
+    padding: 0;
+    transition: 0.4s;
+}
+
+.btn-remove-product:hover{
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.field-obligatorio{
+    color: red;
+    display: block;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.btn-show-product{
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}

@@ -1,0 +1,127 @@
+<br>
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+  Agregar un producto <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+  </svg>
+</button>
+<br>
+<br>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Crear nuevo producto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formulario">
+            <div class="form-group" >
+              <label for="name">Nombre: </label>
+              <input type="text" class="form-control" placeholder="Enter name" formControlName="name" [(ngModel)]="product.name">
+
+              <label for="imageUrl">Imagen<i *ngIf="imageUrlField!.valid" class="fa-solid fa-circle-check"></i></label>
+              <input id="imageUrl" class="form-control" type="text" formControlName="imageUrl" [(ngModel)]="product.imageUrl" placeholder="Url de la imagen"/>
+
+              <span class="validation" *ngIf="imageUrlField!.invalid && (imageUrlField!.touched)">Requerido</span>
+                <label for="description">Descripción: </label>
+                <input type="text" class="form-control" placeholder="Enter name" formControlName="description" [(ngModel)]="product.description">
+                <label for="price">Precio: </label>
+                <input type="number" class="form-control" placeholder="Enter name" formControlName="price" [(ngModel)]="product.price">
+                <label for="stock">Stock: </label>
+                <input type="number" class="form-control" placeholder="Enter name" formControlName="stock" [(ngModel)]="product.stock">
+                <label for="productTypeId">productTypeId: </label>
+                <input type="text" class="form-control" placeholder="Enter name" formControlName="productTypeId" [(ngModel)]="product.productTypeId">
+                <label for="brandId">brandId: </label>
+                <input type="text" class="form-control" placeholder="Enter name" formControlName="brandId" [(ngModel)]="product.brandId">
+            </div>
+            
+
+
+
+            <br>
+            <button type="button" class="btn btn-primary" (click)="postProduct()">Guardar cambios <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+              <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+            </svg></button>
+          </form>
+
+      </div>
+
+      </div>
+
+    </div>
+  </div>
+
+<!-- CARD POR TABLA -->
+<div class="card" style="width: 18rem;">
+
+  <div class="card-body" *ngFor="let product of products">
+    <ng-container *ngIf="products.length > 0 else noData">
+    <img class="card-img-top" src="{{product.imageUrl}}" alt="Card image cap">
+    <h5 class="card-title">{{product.id}}</h5>
+    <p class="card-text">{{product.name}}</p>
+
+    <p class="card-text">{{product.description}}</p>
+    <button type="button" class="btn btn-primary" (click)="editProduct(product.id, content)">Editar</button>
+    <button type="button" class="btn btn-primary" (click)="deleteProduct(product.id)">Eliminar</button>
+    
+    <button type="button" class="btn btn-primary" (click)="addProductCart(product.id)">Comprar</button>
+
+    </ng-container>
+  </div>
+</div>
+
+
+
+
+<ng-template #noData>No existen datos</ng-template>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Marca</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+
+
+    <form id="productForm" [formGroup]="formulario" (ngSubmit)="updateProduct(content)">
+      <div class="form-group">
+          <label for="id">Código:</label>
+          <input type="text" formControlName="id" id="id" class="form-control"/>
+          <div *ngIf="formulario.controls['id'].invalid && (formulario.controls['id'].dirty || formulario.controls['id'].touched)">
+              <small class="text-danger" *ngIf="formulario.controls['id'].errors?.['required']">
+                  El campo codigo es requerido
+              </small>
+              <small class="text-danger" *ngIf="formulario.controls['id'].errors?.['maxlength']">
+                  Longitud máxima: {{formulario.controls['id'].errors?.['maxlength'].requiredLength}}
+              </small>
+          </div>
+      </div>
+
+      <div class="form-group">
+          <label for="name">Descripción:</label>
+          <input type="text" formControlName="name" id="name" class="form-control"/>
+          <div *ngIf="formulario.controls['name'].invalid && (formulario.controls['name'].dirty || formulario.controls['name'].touched)">
+              <small class="text-danger" *ngIf="formulario.controls['name'].errors?.['required']">
+                  El campo codigo es requerido
+              </small>
+              <small class="text-danger" *ngIf="formulario.controls['name'].errors?.['pattern']">
+                  Solo se aceptan caracteres alfanumericos
+              </small>
+          </div>
+
+      </div>
+
+      <button class="btn btn-secondary" type="button">Cancelar</button>
+      <button class="btn btn-primary" type="submit" (click)="refrescar()">Enviar</button>
+  </form>
+
+  </div>
+  <!-- <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div> -->
+</ng-template>
+
+

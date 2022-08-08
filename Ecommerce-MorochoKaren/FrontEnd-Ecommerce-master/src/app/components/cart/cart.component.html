@@ -1,0 +1,62 @@
+<div class="cart-flex container">
+    <div class="cart-products" *ngIf="order != null else noProducts">
+        <h1 class="cart-title">Carrito</h1>
+        <p class="product-code"><span>Código de Orden: </span>{{order.id}}</p>
+        <hr>
+        <div class="order-product" *ngFor="let product of order.orderProducts">
+            <img class="order-img" src="{{product.imageUrl}}">
+            <div class="order-detail">
+                <h3 class="cart-title">{{product.product}}</h3>
+                <a class="btn-show-product" [routerLink]="['/product',product.productId]">Ver Información...</a>
+                <p><b>Precio:</b> ${{product.price}}</p>
+                <hr>
+                <span>Total <b>
+                    <select class="input-quantity" name="quantity" (change)="updateQuantity(product,quantitySelected.value)" #quantitySelected>
+                        <option *ngFor="let quantity of product.stockArray" value="{{quantity}}" [defaultSelected]="product.productQuantity == quantity">{{quantity}}</option>
+                    </select>                
+                </b> unidades: </span> ${{product.total}}
+                <div>
+                    <button class="btn-remove-product" (click)="removeProduct(product)">Remover Producto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="order-pay" *ngIf="order != null">
+        <table class="table-pay">
+            <tr>
+                <td class="table-item"><b>Entrega: </b>
+                </td>
+                <td>
+                    <select name="deliveryMethod" id="deliveryMethod" class="deliveryMethod" [(ngModel)]="deliveryMethod">
+                        <option value="" [defaultSelected]="true">Seleccione...</option>
+                            <option *ngFor="let deliveryMethod of deliveryMethods" value="{{deliveryMethod.id}}">${{deliveryMethod.priceByKm}} {{deliveryMethod.name}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="table-item"><b>Subtotal: </b></td>
+                <td> ${{order.subtotal}}</td>
+            </tr>
+            <tr>
+                <td class="table-item"><b>Subtotal: </b></td>
+                <td> ${{order.subtotal}}</td>
+            </tr>
+            <tr>
+                <td class="table-item"><b>Iva 12%: </b></td>
+                <td> ${{order.iva}}</td>
+            </tr>
+            <tr>
+                <td class="table-item"><b>Total: </b></td>
+                <td> ${{order.totalPrice}}</td>
+            </tr>
+        </table>
+        <div class="buttons-details" *ngIf="order.state == 'Pendiente'">
+            <button class="btn-details" (click)="cancelOrder()">Cancelar <i class="fa-solid fa-ban"></i></button>
+            <button class="btn-details" (click)="payOrder()">Confirmar <i class="fa-solid fa-check"></i></button>
+        </div>
+    </div>
+</div>
+
+<ng-template #noProducts>
+    <h3>No hay productos agregados aun</h3>
+</ng-template>
